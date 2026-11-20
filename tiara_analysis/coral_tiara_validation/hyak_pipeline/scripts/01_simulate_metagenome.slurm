@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=iss_simulate
-#SBATCH --account=<your_lab_account>
-#SBATCH --partition=<your_lab_partition>
+#SBATCH --account=<bbiosci>
+#SBATCH --partition=<compute>
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
@@ -20,12 +20,6 @@ conda activate "${ENV_BASE}/iss-env"
 REF_DIR=refs
 OUTPREFIX=sim/mock_coral_metagenome
 
-# --draft: each fasta file is one "genome" (may be multi-contig draft assembly).
-# --abundance_file: fractional abundance per genome (must sum to 1, see
-#   refs/abundance.tsv built by scripts/build_ref_groups.sh).
-# --n_reads: total read count across both mates. 250M ~ 125M read pairs.
-#   STRONGLY recommend a pilot run first (e.g. --n_reads 2M) to confirm the
-#   whole pipeline works end-to-end before committing a 24h+ allocation to this.
 iss generate \
     --draft ${REF_DIR}/coral_host.fasta \
             ${REF_DIR}/symbiodinium.fasta \
